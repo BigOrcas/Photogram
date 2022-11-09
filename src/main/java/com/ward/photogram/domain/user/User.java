@@ -3,6 +3,7 @@ package com.ward.photogram.domain.user;
 //JPA-Java Persistence API(자바를 데이터를 영구적으로 저장(DB)할수있는 API를 제공)
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
