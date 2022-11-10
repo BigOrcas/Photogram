@@ -32,7 +32,11 @@ dependencies {
 
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	implementation 'javax.servlet:jstl'
+
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.5.2' //유효성 검사
+	implementation 'org.springframework.security:spring-security-taglibs' //JSP를 지원하지 않기 때문에 JSP에서 사용할 taglibs는 수작업으로 추가해야 함
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()

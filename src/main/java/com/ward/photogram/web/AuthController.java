@@ -8,8 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RequiredArgsConstructor // final 필드를 DI할때 사용
@@ -32,8 +38,17 @@ public class AuthController {
     //회원가입버튼 -> /auth/signup -> /auth/signin
     //회원가입버튼 x
     @PostMapping("/auth/signup")
-    public String signup(SignupDto signupDto){
-        log.info(signupDto.toString());
+    public String signup(@Valid SignupDto signupDto, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            Map<String, String> erroMap = new HashMap<>();
+
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                System.out.println(error.getDefaultMessage());
+            }
+        }
+
+
         //User<- SignupDto
         User user =signupDto.toEntity();
         log.info(user.toString());
