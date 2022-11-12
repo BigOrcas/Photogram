@@ -1,6 +1,7 @@
 package com.ward.photogram.web;
 
 import com.ward.photogram.domain.user.User;
+import com.ward.photogram.handler.ex.CustomValidationExcetion;
 import com.ward.photogram.service.AuthService;
 import com.ward.photogram.web.dto.auth.SignupDto;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -37,24 +40,24 @@ public class AuthController {
     }
     //회원가입버튼 -> /auth/signup -> /auth/signin
     //회원가입버튼 x
-    @PostMapping("/auth/signup")
+    @PostMapping("/auth/signup")//responsebody 데이터를 return한다
     public String signup(@Valid SignupDto signupDto, BindingResult bindingResult) {
-
+        //유효성검사가 하나라도 실패한다면 bindinResult에 담긴다
         if (bindingResult.hasErrors()) {
-            Map<String, String> erroMap = new HashMap<>();
+            Map<String, String> errorMap = new HashMap<>();
 
             for (FieldError error : bindingResult.getFieldErrors()) {
-                System.out.println(error.getDefaultMessage());
+                errorMap.put(error.getField(), error.getDefaultMessage()); //에러가 발생한 아이디와 메세지를 hash맵에 저장
+                //System.out.println(error.getDefaultMessage());
             }
+            throw new CustomValidationExcetion("유효성검사오류남",errorMap);
+        } else {
+            //User<- SignupDto
+            User user = signupDto.toEntity();
+            User userEntity = authService.회원가입(user);
+            System.out.println(userEntity);
+            return "auth/signin";
         }
-
-
-        //User<- SignupDto
-        User user =signupDto.toEntity();
-        log.info(user.toString());
-        User userEntity= authService.회원가입(user);
-        System.out.println(userEntity);
-        return "auth/signin";
     }
     //시큐리티는 csrf 토큰 검사를 통해 클라이언트가 요청한 메세지를 먼저 검사한다
     //input tag에 csrf가 붙어서 요청이들어옴
