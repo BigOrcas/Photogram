@@ -2,7 +2,7 @@ package com.ward.photogram.handler.ex;
 
 import java.util.Map;
 
-public class CustomValidationExcetion extends RuntimeException{
+public class CustomValidationException extends RuntimeException{
 
 
     //객체를 구분할때!!
@@ -10,7 +10,7 @@ public class CustomValidationExcetion extends RuntimeException{
 
     private Map<String,String> erroMap;
 
-    public CustomValidationExcetion(String message,Map<String,String> erroMap){
+    public CustomValidationException(String message,Map<String,String> erroMap){
         super(message);
         this.erroMap=erroMap;
     }

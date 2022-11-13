@@ -24,7 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/auth/signin") //로그인이 필요한 url을 타면 이쪽으로 가게하겠다
+                .loginPage("/auth/signin") //로그인이 필요한 url을 타면 이쪽으로 가게하겠다. GET방식
+                .loginProcessingUrl("/login") //POST -> 스프링 시큐리티가 로그인 프로세스 진행 (로그인 요청인지 확인)//UserDetailsService
                 .defaultSuccessUrl("/"); //로그인을 정상척으로 처리하면 default url로 가게함
     }
 }
