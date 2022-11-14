@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-
+<!-- 세션정보를 JSP 파일에서 받아서 넘길 때 사용되는 문법임 property까지는 동일하게 작성하여 사용할 수 있음, var만 변경하여 나머지는 고정으로 사용-->
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
 <!DOCTYPE html>
 <html lang="en">
 
