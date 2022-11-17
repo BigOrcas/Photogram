@@ -18,17 +18,20 @@ import java.util.Map;
 public class ControllerExceptionHandler {
 
     @ExceptionHandler(CustomValidationException.class)
-    public String validationExcetion(CustomValidationException e){
+    public String validationException(CustomValidationException e){
     // CMRespDto,Script 비교
     // 1.클라이언트에게 응답할때는 script 좋음
     // 2. ajax 통신-cmresDto
     // 3.Android 통신-cmrespDto
-    return Script.back(e.getErroMap().toString());
+        if(e.getErrorMap() == null)
+            return Script.back(e.getMessage());
+        else
+            return Script.back(e.getErrorMap().toString()); // => 오류메세지 팝업 및 자동으로 뒤로가짐
     }
 
     @ExceptionHandler(CustomValidationApiException.class)
     public ResponseEntity<?> validationException(CustomValidationApiException e){
         System.out.println("===============실행되나?==================");
-        return new ResponseEntity<>(new CMRespDto<>(-1,e.getMessage(),e.getErrorMap()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new CMRespDto<>(-1,e.getMessage(),null), HttpStatus.BAD_REQUEST);
     }
 }

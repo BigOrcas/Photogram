@@ -25,13 +25,12 @@
                     <h1><img src="/images/logo.jpg" alt=""></h1>
 
                     <!--로그인 인풋-->
-                    <form class="login__input" action="/login" method="post">
+                    <form class="login__input" action="/login" method="post"><!--action signin 로그인은 POST 방식--> <
                         <input type="text" name="username" placeholder="유저네임" required="required" />
                         <input type="password" name="password" placeholder="비밀번호" required="required" />
                         <button>로그인</button>
                     </form>
                     <!--로그인 인풋end-->
-
                     <!-- 또는 -->
                     <div class="login__horizon">
                         <div class="br"></div>
