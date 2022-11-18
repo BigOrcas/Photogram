@@ -18,7 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {  //HttpSecurity 클래스를 통해 HTTP 요청에 대한 보안을 설정할 수 있습니다.
         http.csrf().disable(); // csrf 토큰 비활성화시킨다 default는 활성
         http.authorizeRequests() // HttpServletRequest 요청 URL에 따라 접근 권한을 설정합니다.
-                .antMatchers("/", "/user/**", "/image/**", "/subscribe/**", "/comment/**") //이 url을 가진 주소들은
+                .antMatchers("/", "/user/**", "/image/**", "/subscribe/**", "/comment/**","/api/**") //이 url을 가진 주소들은
                 .authenticated() // 인증이 필요하다
                 .anyRequest() // 나머지 요청들은
                 .permitAll() // 다 허용합니다!

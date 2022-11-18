@@ -1,6 +1,7 @@
 package com.ward.photogram.handler;
 
 
+import com.ward.photogram.handler.ex.CustomApiException;
 import com.ward.photogram.handler.ex.CustomValidationApiException;
 import com.ward.photogram.handler.ex.CustomValidationException;
 import com.ward.photogram.util.Script;
@@ -29,9 +30,15 @@ public class ControllerExceptionHandler {
         else
             return Script.back(e.getErrorMap().toString()); // => 오류메세지 팝업 및 자동으로 뒤로가짐
     }
-
     @ExceptionHandler(CustomValidationApiException.class)
     public ResponseEntity<?> validationException(CustomValidationApiException e){ //ResponseEntity<?>의 ?는 어떤 타입이든 추론해서 변경해준다.
+        System.out.println("===============실행되나?==================");
+        // 이 때 예외처리 핸들러에서는 HttpStatus도 같이 반환해야 하기 때문에 ResponseEntity 클래스 사용
+        return new ResponseEntity<>(new CMRespDto<>(-1,e.getMessage(),null), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CustomApiException.class)
+    public ResponseEntity<?> validationException(CustomApiException e){ //ResponseEntity<?>의 ?는 어떤 타입이든 추론해서 변경해준다.
         System.out.println("===============실행되나?==================");
         // 이 때 예외처리 핸들러에서는 HttpStatus도 같이 반환해야 하기 때문에 ResponseEntity 클래스 사용
         return new ResponseEntity<>(new CMRespDto<>(-1,e.getMessage(),null), HttpStatus.BAD_REQUEST);
