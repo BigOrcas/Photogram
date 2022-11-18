@@ -39,10 +39,12 @@ public class UserApiController {
                 // System.out.println("=================");
                 // System.out.println(error.getDefaultMessage()); error message 주석
             }
-            throw new CustomValidationApiException("유효성 검사 실패함", errorMap);// -> handler -> CotrollerExcoptionHandler
+            throw new CustomValidationApiException("유효성 검사 실패함", errorMap);
+            //유효성 검사 실패 -> BindingResult -> errorMap -> throw CustomValidationApiException -> ControllerExceptionHandler -> validationException함수 -> CMRespDto 리턴
         }else{
             User userEntity = userService.회원수정(id,userUpdateDto.toEntity());
             principalDetails.setUser(userEntity);
+            //세션정보까지 수정 , 이거 안하면 디비만 변경되고 세션은 변경 안됨
             return new CMRespDto<>(1,"회원수정완료",userEntity);
         }
     }

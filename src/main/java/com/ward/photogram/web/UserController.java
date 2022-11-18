@@ -19,6 +19,17 @@ public class UserController {
 
     @GetMapping("/user/{id}/update")
     public String update(@PathVariable int id, @AuthenticationPrincipal PrincipalDetails principalDetails, Model model){
+
+        // 세션 정보 확인하기
+        // UserDetailsService 클래스의 loadUserByUsername 함수가 성공적으로 반환되면 새로운 세션을 생성한다.
+        // 이것을 개발자가 직접 확인하는 방법을 정리하자면
+        // 새로운 세션이 생성되면 SecurityContextHolder라는 클래스 안에 정보가 저장된다.
+        // 새롭게 생성한 User 정보가 들어있는 PrincipalDetails 객체를 반환하기 때문에 Principal에 해당 객체가 저장됩니다.
+        // 순서는  SecurityContextHolder -> SecurityContext -> Authentication -> Principal
+        // @AuthenticationPrincipal 어노테이션을 사용하면 Authentication 객체에 바로 접근할 수 있어 편리합니다.
+
+        // 세션에 접근하는 두가지 방법
+
         // 1.추천
         System.out.println("세션정보 :" + principalDetails.getUser());
         

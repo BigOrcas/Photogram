@@ -45,17 +45,17 @@ public class PrincipalDetails implements UserDetails {
         return user.getUsername();
     }
 
-    @Override
+    @Override  //이 계정이 만료가 되었니? , 아래 함수들 다 false이면 로그인 안됨
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    @Override
+    @Override //이 계정이 잠겼는지?
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    @Override
+    @Override //이 비밀번호..?
     public boolean isCredentialsNonExpired() {
         return true;
     }

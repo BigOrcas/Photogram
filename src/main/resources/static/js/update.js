@@ -10,7 +10,7 @@ function update(userId, event) {
         type: "PUT",
         url:"/api/user/" + userId + "",
         data:data,
-        contentType:"application/x-www-form-urlencoded;charset=urf-8",
+        contentType:"application/x-www-form-urlencoded;charset=urf-8", //데이터의 타입, 키-벨류 타입임
         dataType:"json"
     }).done(res=>{//Http Status 상태코드 200번
         console.log("성공", res);
@@ -20,6 +20,6 @@ function update(userId, event) {
         if(error.data == null)
             alert(error.responseJSON.message);
         else
-            alert(JSON.stringify(error.responseJSON.data));
+            alert(JSON.stringify(error.responseJSON.data));      //JSON.stringify 함수 사용하면 js 오브젝트를 json 문자열로 변환해줌
     });
 }

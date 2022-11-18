@@ -18,6 +18,11 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    // ex) 10번 유저 회원정보 수정해 -> DB에 10번 유저가 없을 시 -> 예외처리
+    // 레파지토리에서 요청받은 아이디의 회원을 찾고 없을 시 예외를 발생시킵니다.
+    // .orElserThrow가 반환값이 null이면 예외를 던지는 함수입니다.
+    // 예외가 발생하면 따로 구현해놓은 핸들러가 동작해 처리하게 됩니다.
+
     @Transactional
     public User 회원수정(int id, User user){
         // 1.영속화
