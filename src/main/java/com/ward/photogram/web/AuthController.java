@@ -1,4 +1,3 @@
-
 package com.ward.photogram.web;
 
 import com.ward.photogram.domain.user.User;
@@ -25,7 +24,7 @@ import java.util.Map;
 public class AuthController {
 
 
-    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class); // looger를 통한 디버깅
 
 
     private final AuthService authService;
@@ -58,7 +57,9 @@ public class AuthController {
 //                System.out.println(error.getDefaultMessage()); error message 주석
             }
             throw new CustomValidationException("유효성 검사 실패함", errorMap);// -> handler -> CotrollerExcoptionHandler
-        } else {
+        }
+
+        else {
 
             if (signupDto.getUsername().length() > 20) {
                 log.info("길이초과");
@@ -72,6 +73,7 @@ public class AuthController {
             return "auth/signin";
         }
     }
+
 
 
 }

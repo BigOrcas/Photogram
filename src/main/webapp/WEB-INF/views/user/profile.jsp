@@ -45,7 +45,7 @@
             </div>
             <div class="state">
                 <h4>자기 소개입니다.</h4>
-                <h4>https://github.com/codingspecialist</h4>
+                <h4>https://https://github.com/BigOrcas</h4>
             </div>
         </div>
         <!--유저정보 및 사진등록 구독하기-->

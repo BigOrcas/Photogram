@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
-@Service //IOC
+@Service //IOC ,스프링컨테이너에 원래 있는 UserDetailsService를 덮어 씌워 대체함
 public class PrincipalDetailService implements UserDetailsService {
 
     //실제 로그인 설정을 시큐리티 설정파일에 Post방식으로 넣어두면,
@@ -22,6 +22,9 @@ public class PrincipalDetailService implements UserDetailsService {
     // 2. 리턴이 잘되면 자동으로 userdetails세션을 만든다
     @Override
     public UserDetails loadUserByUsername(String username)throws UsernameNotFoundException{
+        //로그인을 실행하면 이 함수가 실행됨
+        //리턴이 잘되면 자동으로 UserDetails타입을 세션으로 만든다.
+        //패스워드는 알아서 체킹하니깐 신경쓸 필요 없음
 
         User userEntity = userRepository.findByUsername(username);
 
@@ -32,4 +35,8 @@ public class PrincipalDetailService implements UserDetailsService {
 
 
     }
+    // * 스프링 시큐리티 로그인 프로세스 과정 *
+    // 1) 시큐리티 설정파일에서 로그인 POST 요청을 계속 기다립니다.
+    // 2) 누군가가 로그인을 시도하고 POST요청을 보내면 요청을 낚아챕니다.
+    // 3) IoC컨테이너에서 UserDetailsService 라는 애가 정보를 받아 로그인을 진행합니다.
 }

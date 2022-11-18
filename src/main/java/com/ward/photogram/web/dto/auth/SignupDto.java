@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 
 @Data //Getter,Setter
 public class SignupDto {
+
+    //Dto : data transfer object , 통신을 위해 데이터를 담아두는 객체
     @Size(min=2,max=20)
     @NotBlank
     private String username;
