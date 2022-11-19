@@ -2,6 +2,7 @@ package com.ward.photogram.handler;
 
 
 import com.ward.photogram.handler.ex.CustomApiException;
+import com.ward.photogram.handler.ex.CustomException;
 import com.ward.photogram.handler.ex.CustomValidationApiException;
 import com.ward.photogram.handler.ex.CustomValidationException;
 import com.ward.photogram.util.Script;
@@ -25,10 +26,15 @@ public class ControllerExceptionHandler {
     // 2. ajax 통신-cmresDto
     // 3.Android 통신-cmrespDto
         // -> 응답 받는 쪽이 클라이언트면 Script, 개발자면 CMResDto가 좋음
-        if(e.getErrorMap() == null)
+        if(e.getErrorMap() == null) {
             return Script.back(e.getMessage());
-        else
-            return Script.back(e.getErrorMap().toString()); // => 오류메세지 팝업 및 자동으로 뒤로가짐
+        }else{
+            return Script.back(e.getErrorMap().toString());
+        } // => 오류메세지 팝업 및 자동으로 뒤로가짐
+    }
+    @ExceptionHandler(CustomException.class)
+    public String validationException(CustomException e){
+        return Script.back(e.getMessage());
     }
     @ExceptionHandler(CustomValidationApiException.class)
     public ResponseEntity<?> validationException(CustomValidationApiException e){ //ResponseEntity<?>의 ?는 어떤 타입이든 추론해서 변경해준다.

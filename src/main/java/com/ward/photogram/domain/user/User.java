@@ -2,6 +2,7 @@ package com.ward.photogram.domain.user;
 
 //JPA-Java Persistence API(자바를 데이터를 영구적으로 저장(DB)할수있는 API를 제공)
 
+import com.ward.photogram.domain.image.Image;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 //DB에 저장하기 위한 모델
 //JPA = Java persistence API (자바로 데이터를 영구적으로 저장(DB)할 수 있는 API를 제공)
@@ -44,6 +46,13 @@ public class User {
 
     private String profileImageUrl; //유저 사진
     private String role; //권한
+
+    // 나는 연관관계의 주인이 아니다 그러므로 테이블에 칼럼을 만들지마
+    // User를 select할때 해당 USER ID로 등록된 IMAGE를 다가져와
+    // Lazy= user를 selec할때 해당 user id로 등록된 image들을 전부 join해서 가져와!!
+    // Eager = user를 select할때 해당 user ㅑid 로 등록된 image들을 전부 join해서 가져와
+    @OneToMany(mappedBy="user",fetch =FetchType.LAZY)
+    private List<Image> images; //양방향 매핑
 
 
     private LocalDateTime createDate;
