@@ -3,19 +3,16 @@ package com.ward.photogram.domain.user;
 //JPA-Java Persistence API(자바를 데이터를 영구적으로 저장(DB)할수있는 API를 제공)
 
 import com.ward.photogram.domain.image.Image;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 //DB에 저장하기 위한 모델
 //JPA = Java persistence API (자바로 데이터를 영구적으로 저장(DB)할 수 있는 API를 제공)
 
+@ToString
 @Builder // builder()함수를 사용해 해당 객체로 초기화 할 수 있게 해주는 Lombok API 입니다.
 @AllArgsConstructor  // 모든 필드 값을 파라미터로 받는 생성자를 만듦
 @NoArgsConstructor //파라미터가 없는 기본 생성자를 생성
@@ -52,6 +49,7 @@ public class User {
     // Lazy= user를 selec할때 해당 user id로 등록된 image들을 전부 join해서 가져와!!
     // Eager = user를 select할때 해당 user ㅑid 로 등록된 image들을 전부 join해서 가져와
     @OneToMany(mappedBy="user",fetch =FetchType.LAZY)
+    @ToString.Exclude
     private List<Image> images; //양방향 매핑
 
 

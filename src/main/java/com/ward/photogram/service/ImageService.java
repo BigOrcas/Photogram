@@ -20,7 +20,7 @@ public class ImageService {
 
     private final ImageRepository imageRepository;
 
-    @Value("${file.path}")
+    @Value("${file.path}") //properties에 있는 값을 내가 원하는 걸 가져올 수 있음
     private String uploadFolder;
 
     public void 사진업로드(ImageUploadDto imageUploadDto, PrincipalDetails principalDetails){
@@ -40,6 +40,6 @@ public class ImageService {
         //image 테이블에 저장
         Image image= imageUploadDto.toEntity(imageFileName,principalDetails.getUser());
         Image imageEntity = imageRepository.save(image);
-        System.out.println(imageEntity);
+        System.out.println(imageEntity.toString());
     }
 }

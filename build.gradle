@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.7.0'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+
 }
 
 group = 'com.ward'
@@ -19,24 +20,26 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // jpa 사용
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // 클라이언트 로그인 auth 지원
+	implementation 'org.springframework.boot:spring-boot-starter-security' // 시큐리티 사용 - 리다이렉션 (보안)
+	implementation 'org.springframework.boot:spring-boot-starter-web' // 스프링 부트 톰켓서버 등 (보안)
 
-	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
-	implementation 'javax.servlet:jstl'
 
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.5.2' //유효성 검사
+	developmentOnly 'org.springframework.boot:spring-boot-devtools' // 여러가지 개발 툴이 있음 대표적으로 실시간 reload 서버
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'	//jpa 마리아 db 연동
+	compileOnly 'org.projectlombok:lombok' // 컴파일 시 롬복 변환
+	annotationProcessor 'org.projectlombok:lombok' //어노테이션 롬복 사용
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'  //테스트 환경 스프링 부트 톰켓서버 등 (보안)
+	testImplementation 'org.springframework.security:spring-security-test' //테스트 환경 시큐리티 사용 - 리다이렉션 (보안)
+
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' //Jsp 파서
+	implementation 'javax.servlet:jstl' //static 파일 이동 가능 서블릿
+
+	implementation 'org.springframework.boot:spring-boot-starter-validation' //유효성 검사
 	implementation 'org.springframework.security:spring-security-taglibs' //JSP를 지원하지 않기 때문에 JSP에서 사용할 taglibs는 수작업으로 추가해야 함
 }
-
 
 tasks.named('test') {
 	useJUnitPlatform()

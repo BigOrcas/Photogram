@@ -23,12 +23,13 @@ public class UserService {
     // 레파지토리에서 요청받은 아이디의 회원을 찾고 없을 시 예외를 발생시킵니다.
     // .orElserThrow가 반환값이 null이면 예외를 던지는 함수입니다.
     // 예외가 발생하면 따로 구현해놓은 핸들러가 동작해 처리하게 됩니다.
+
     public User 회원프로필(int userId){
        User userEntity =userRepository.findById(userId).orElseThrow(()->{
            throw new CustomException("해당 프로필 페이지는 없는 페이지입니다.");
         });
-       System.out.println("=======================");
-       userEntity.getImages().get(0);
+
+
        return userEntity;
     }
     @Transactional

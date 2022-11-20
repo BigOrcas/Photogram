@@ -21,7 +21,7 @@ public class UserController {
     @GetMapping("/user/{id}")
     public String profile(@PathVariable int id, Model model){
         User userEntity = userService.회원프로필(id);
-        model.addAttribute("images",userEntity);
+        model.addAttribute("user",userEntity);
         return "user/profile";
     }
 
@@ -39,7 +39,7 @@ public class UserController {
         // 세션에 접근하는 두가지 방법
 
         // 1.추천
-        System.out.println("세션정보 :" + principalDetails.getUser());
+        //System.out.println("세션정보 :" + principalDetails.getUser());
         
         // 2. 극혐
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
