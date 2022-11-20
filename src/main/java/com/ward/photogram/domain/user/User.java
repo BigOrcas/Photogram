@@ -2,6 +2,7 @@ package com.ward.photogram.domain.user;
 
 //JPA-Java Persistence API(자바를 데이터를 영구적으로 저장(DB)할수있는 API를 제공)
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ward.photogram.domain.image.Image;
 import lombok.*;
 
@@ -49,7 +50,7 @@ public class User {
     // Lazy= user를 selec할때 해당 user id로 등록된 image들을 전부 join해서 가져와!!
     // Eager = user를 select할때 해당 user ㅑid 로 등록된 image들을 전부 join해서 가져와
     @OneToMany(mappedBy="user",fetch =FetchType.LAZY)
-    @ToString.Exclude
+    @JsonIgnoreProperties({"user"})
     private List<Image> images; //양방향 매핑
 
 

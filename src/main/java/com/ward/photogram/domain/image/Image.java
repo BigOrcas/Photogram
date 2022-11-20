@@ -21,6 +21,7 @@ public class Image { // (image)N : (user)1 한명의 유저는 여러개의 이�
     private String caption; //사진 넣을 때 설명
     private String postImageUrl; //사진을 전송받아서 그 사진을 서버 특정 폴더에 저장 -><DB 경로> Insert
 
+
     @JsonIgnoreProperties({"images"})
     @JoinColumn(name = "userId")
     @ManyToOne(fetch = FetchType.EAGER) // 이미지를 select하면 조인해서 User정보를 같이 들고옴

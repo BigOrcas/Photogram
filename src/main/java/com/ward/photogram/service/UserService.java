@@ -5,6 +5,7 @@ import com.ward.photogram.domain.user.User;
 import com.ward.photogram.domain.user.UserRepository;
 import com.ward.photogram.handler.ex.CustomException;
 import com.ward.photogram.handler.ex.CustomValidationApiException;
+import com.ward.photogram.web.dto.user.UserProfileDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,13 +25,18 @@ public class UserService {
     // .orElserThrow가 반환값이 null이면 예외를 던지는 함수입니다.
     // 예외가 발생하면 따로 구현해놓은 핸들러가 동작해 처리하게 됩니다.
 
-    public User 회원프로필(int userId){
-       User userEntity =userRepository.findById(userId).orElseThrow(()->{
+    public UserProfileDto  회원프로필(int pageUserId,int principalId){
+        UserProfileDto dto = new UserProfileDto();
+
+        User userEntity =userRepository.findById(pageUserId).orElseThrow(()->{
            throw new CustomException("해당 프로필 페이지는 없는 페이지입니다.");
         });
 
+        dto.setUser(userEntity);
+        dto.setPageOwnerState(pageUserId == principalId);
+        dto.setImageCount(userEntity.getImages().size());
 
-       return userEntity;
+       return dto;
     }
     @Transactional
     public User 회원수정(int id, User user){
