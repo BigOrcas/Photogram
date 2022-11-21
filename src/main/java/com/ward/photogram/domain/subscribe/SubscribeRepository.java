@@ -3,16 +3,17 @@ package com.ward.photogram.domain.subscribe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-public interface SubscribeRepository extends JpaRepository<Subscribe, Long> {
+public interface SubscribeRepository extends JpaRepository<Subscribe, Integer> {
 
     @Modifying //Insert,delete,update를 네이티브 쿼리로 작성하려면 해당 어노테이션 필요!!
     @Query(value="INSERT INTO subscribe(fromUserId,toUserId,createDate) VALUES(:fromUserId:toUserId new())",nativeQuery = true)
-    void mSubscribe(int fromUserId,int toUserId);
+    void mSubscribe(@Param("fromUserId") int fromUserId, @Param("toUserId") int toUserId);
 
     @Modifying
     @Query(value = "DELETE FROM subscibe WHERE fromUserId=:fromUserId and toUserId=:toUserId",nativeQuery = true)
-    void mUnSubscribe(int fromUserId,int toUserId);
+    void mUnSubscribe(@Param("fromUserId") int fromUserId, @Param("toUserId") int toUserId);
 
     //return 타입이 int이면 : 성공하면 변경된 행 개수, 실패하면 -1 반환됨
     // -> 변경된 행의 개수만큼 숫자를 return함, ex) 행 10개 바꾸면 10 return, 0 return 하면 변경된게 없다는 뜻
