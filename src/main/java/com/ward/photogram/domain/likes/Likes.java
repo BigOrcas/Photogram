@@ -43,7 +43,7 @@ public class Likes { // N
     @ManyToOne
     private Image image; // 1
 
-
+    @JsonIgnoreProperties({"images"})
     // 오류가 터지고 나서 잡아봅시다.
     @JoinColumn(name = "userId")
     @ManyToOne
