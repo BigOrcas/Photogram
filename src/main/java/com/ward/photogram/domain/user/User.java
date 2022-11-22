@@ -25,7 +25,7 @@ public class User {
     private int id; //나중에 사용자가 많아지게 되면 Long을 써야함
 
 
-    @Column(length = 15, unique = true) //제약조건 DB에 들어갈 때, 길이 제한 및 Unique
+    @Column(length = 100,  unique = true) //제약조건 DB에 들어갈 때, 길이 제한 및 Unique
     private String username;
 
     @Column(nullable = false) //빈 데이터 못들어오게 막음

@@ -16,7 +16,7 @@ function storyLoad() {
         url: `/api/image?page=${page}`,
         dataType: "json"
     }).done(res => {
-        //console.log(res);
+        console.log(res);
         res.data.content.forEach((image)=>{
             let storyItem = getStoryItem(image);
             $("#storyList").append(storyItem);
@@ -45,16 +45,21 @@ function getStoryItem(image) {
 
                 <div class="sl__item__contents">
                     <div class="sl__item__contents__icon">
+                <button>`;
 
-                        <button>
-                            <i class="fas fa-heart active" id="storyLikeIcon-1" onclick="toggleLike()"></i>
-                        </button>
+                if (image.likeState) {
+                    item += `<i class="fas fa-heart active" id="storyLikeIcon-${image.id}" onclick="toggleLike(${image.id})"></i>`;
+                } else {
+                    item += `<i class="far fa-heart" id="storyLikeIcon-${image.id}" onclick="toggleLike(${image.id})"></i>`;
+                }
+                     item += `
+                       </button>
                     </div>
 
-                    <span class="like"><b id="storyLikeCount-1">3 </b>likes</span>
+                    <span class="like"><b id="storyLikeCount-${image.id}">${image.likeCount} </b>likes</span>
 
                     <div class="sl__item__contents__content">
-                        <p>등산하는 것이 너무 재밌네요</p>
+                        <p>${image.caption}</p>
                     </div>
 
                     <div id="storyCommentList-1">

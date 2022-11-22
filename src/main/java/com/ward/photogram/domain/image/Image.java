@@ -1,11 +1,13 @@
 package com.ward.photogram.domain.image;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ward.photogram.domain.likes.Likes;
 import com.ward.photogram.domain.user.User;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -26,6 +28,17 @@ public class Image { // (image)N : (user)1 한명의 유저는 여러개의 이�
     @JoinColumn(name = "userId")
     @ManyToOne(fetch = FetchType.EAGER) // 이미지를 select하면 조인해서 User정보를 같이 들고옴
     private User user; //1 : 1
+
+    // 이미지 좋아요
+    @JsonIgnoreProperties({"image"})
+    @OneToMany(mappedBy = "image")
+    private List<Likes> likes;
+
+    @Transient // DB에 칼럼이 만들어지지 않는다.
+    private boolean likeState;
+
+    @Transient
+    private int likeCount;
 
 
     private LocalDateTime createDate;
