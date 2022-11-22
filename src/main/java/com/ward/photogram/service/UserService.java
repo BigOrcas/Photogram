@@ -1,6 +1,7 @@
 package com.ward.photogram.service;
 
 import com.ward.photogram.config.auth.PrincipalDetails;
+import com.ward.photogram.domain.subscribe.SubscribeRepository;
 import com.ward.photogram.domain.user.User;
 import com.ward.photogram.domain.user.UserRepository;
 import com.ward.photogram.handler.ex.CustomException;
@@ -19,6 +20,7 @@ import java.util.function.Supplier;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final SubscribeRepository subscribeRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     // ex) 10번 유저 회원정보 수정해 -> DB에 10번 유저가 없을 시 -> 예외처리
     // 레파지토리에서 요청받은 아이디의 회원을 찾고 없을 시 예외를 발생시킵니다.
@@ -35,6 +37,13 @@ public class UserService {
         dto.setUser(userEntity);
         dto.setPageOwnerState(pageUserId == principalId);
         dto.setImageCount(userEntity.getImages().size());
+
+        int subscribeState= subscribeRepository.mSubscribeState(principalId,pageUserId);
+        int subscribeCount= subscribeRepository.mSubscribeCount(pageUserId);
+
+        dto.setSubscribeState(subscribeState ==1);
+        dto.setSubscribeCount(subscribeCount);
+
 
        return dto;
     }

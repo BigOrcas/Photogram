@@ -45,7 +45,7 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(CustomApiException.class)
     public ResponseEntity<?> validationException(CustomApiException e){ //ResponseEntity<?>의 ?는 어떤 타입이든 추론해서 변경해준다.
-        System.out.println("===============실행되나?==================");
+        System.out.println("===============누구냐너?==================");
         // 이 때 예외처리 핸들러에서는 HttpStatus도 같이 반환해야 하기 때문에 ResponseEntity 클래스 사용
         return new ResponseEntity<>(new CMRespDto<>(-1,e.getMessage(),null), HttpStatus.BAD_REQUEST);
     }
