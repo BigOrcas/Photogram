@@ -35,13 +35,13 @@ public class Image { // (image)N : (user)1 한명의 유저는 여러개의 이�
         this.createDate = LocalDateTime.now();
     }
 
-//    @Override
-//    public String toString() {
-//        return "Image{" +
-//                "id=" + id +
-//                ", caption='" + caption + '\'' +
-//                ", postImageUrl='" + postImageUrl + '\'' +
-//                ", createDate=" + createDate +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Image{" +
+                "id=" + id +
+                ", caption='" + caption + '\'' +
+                ", postImageUrl='" + postImageUrl + '\'' +
+                ", createDate=" + createDate +
+                '}';
+    }
 }

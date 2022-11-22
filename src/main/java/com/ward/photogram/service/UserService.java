@@ -12,7 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.function.Supplier;
 
 @RequiredArgsConstructor
@@ -27,6 +27,7 @@ public class UserService {
     // .orElserThrow가 반환값이 null이면 예외를 던지는 함수입니다.
     // 예외가 발생하면 따로 구현해놓은 핸들러가 동작해 처리하게 됩니다.
 
+    @Transactional(readOnly=true)
     public UserProfileDto  회원프로필(int pageUserId,int principalId){
         UserProfileDto dto = new UserProfileDto();
 

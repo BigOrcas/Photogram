@@ -9,9 +9,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -19,6 +21,12 @@ import java.util.UUID;
 public class ImageService {
 
     private final ImageRepository imageRepository;
+
+    @Transactional(readOnly=true) //영속성 컨텍스트 변경 감지를 해서,더티 체킹,flush(반영) x -> 성능이 괜찮아짐
+    public List<Image> 이미지스토리(int principalId){
+        List<Image> images =imageRepository.mStory(principalId);
+        return images;
+    }
 
     @Value("${file.path}") //properties에 있는 값을 내가 원하는 걸 가져올 수 있음
     private String uploadFolder;
